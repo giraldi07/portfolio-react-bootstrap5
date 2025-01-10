@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  
+  :root[class~="dark"] {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
+  }
+}
+
+@layer components {
+  .page-transition {
+    @apply opacity-0;
+    animation: pageEnter 0.5s ease-out forwards;
+  }
+
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease-out;
+  }
+
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease-out, width 0.2s ease-out, height 0.2s ease-out, background-color 0.2s ease-out, border-color 0.2s ease-out;
+    transform: translate(-50%, -50%); /* Pusatkan kursor pada titik klik */
+  }
+
+  /* Kursor Default */
+  .custom-cursor.default {
+    width: 24px;
+    height: 24px;
+    background-color: rgba(0, 0, 0, 0.8); /* Warna latar */
+    border: 2px solid rgba(255, 255, 255, 0.8); /* Border putih */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Efek bayangan */
+  }
+
+  .custom-cursor.default:hover {
+    transform: scale(1.2); /* Membesar saat hover */
+    background-color: rgba(255, 0, 0, 0.8); /* Warna latar berubah saat hover */
+    border-color: rgba(255, 255, 255, 1); /* Border lebih terang saat hover */
+  }
+
+  /* Kursor Dot */
+  .custom-cursor.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(0, 0, 0, 0.8); /* Warna latar */
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); /* Efek bayangan */
+  }
+
+  .custom-cursor.dot:hover {
+    transform: scale(1.5); /* Membesar saat hover */
+    background-color: rgba(255, 0, 0, 0.8); /* Warna latar berubah saat hover */
+  }
+
+  /* Kursor Border */
+  .custom-cursor.border {
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(0, 0, 0, 0.8); /* Warna border */
+    border-radius: 50%;
+    background-color: transparent; /* Tidak ada latar */
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3); /* Efek bayangan */
+  }
+
+  .custom-cursor.border:hover {
+    transform: scale(1.2); /* Membesar saat hover */
+    border-color: rgba(255, 0, 0, 0.8); /* Warna border berubah saat hover */
+  }
+
+  /* Efek Klik untuk Semua Jenis Kursor */
+  .custom-cursor.default:active,
+  .custom-cursor.dot:active,
+  .custom-cursor.border:active {
+    transform: scale(0.8); /* Mengecil saat diklik */
+    background-color: rgba(0, 0, 0, 0.6); /* Warna latar berubah saat diklik */
+    border-color: rgba(0, 0, 0, 0.6); /* Warna border berubah saat diklik */
+  }
+
+  .custom-cursor.dot:active::after,
+  .custom-cursor.border:active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    animation: ripple 0.3s ease-out;
+  }
+
+  @keyframes ripple {
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  /* Element transitions */
+  .animate-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: elementEnter 0.5s ease-out forwards;
+  }
+
+  .stagger-animation > * {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .stagger-animation > *:nth-child(1) { animation: elementEnter 0.5s ease-out 0.1s forwards; }
+  .stagger-animation > *:nth-child(2) { animation: elementEnter 0.5s ease-out 0.2s forwards; }
+  .stagger-animation > *:nth-child(3) { animation: elementEnter 0.5s ease-out 0.3s forwards; }
+  .stagger-animation > *:nth-child(4) { animation: elementEnter 0.5s ease-out 0.4s forwards; }
+  .stagger-animation > *:nth-child(5) { animation: elementEnter 0.5s ease-out 0.5s forwards; }
+  .stagger-animation > *:nth-child(n+6) { animation: elementEnter 0.5s ease-out 0.6s forwards; }
+
+  /* Hover transitions */
+  .hover-lift {
+    @apply transition-transform duration-300 ease-out;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Scale transitions */
+  .scale-transition {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .scale-transition:hover {
+    @apply scale-105;
+  }
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes elementEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+@layer utilities {
+  .transition-all-smooth {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .hover-shadow {
+    @apply transition-shadow duration-300 hover:shadow-lg;
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
