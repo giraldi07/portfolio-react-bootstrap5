@@ -79,7 +79,7 @@ export default function Sidebar({ className = '', isCollapsed, toggleSidebar }: 
         {!isCollapsed && (
           <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-800">
             <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-              © {new Date().getFullYear()} Your Name
+              © {new Date().getFullYear()} Template by Geraldpra
             </p>
           </div>
         )}
